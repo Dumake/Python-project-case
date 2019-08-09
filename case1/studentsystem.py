@@ -62,10 +62,48 @@ def sort():
     pass
 
 
-# 统计学生总数
+# 统计学生总人数
 def total():
     pass
 
 
+# 显示所有学生信息
+def show():
+    pass
+
+
+#将学生信息保存到文件
+def save(student):
+    try:
+        student_txt = open(filename, 'a')
+    except Exception as e:
+        student_txt = open(filename, 'w')
+    for info in student:
+        student_txt.write(str(info) + '\n')
+    student_txt.close()
+
+
+def menu():
+    print("""    
+    |————————————学生信息管理系统————————————|
+    |                                      |
+    |   ============功能菜单============    |
+    |                                       |
+    |   1.录入学生成绩信息                   |
+    |   2.查找学生成绩信息                   |
+    |   3.删除学生信息                       |
+    |   4.修改学生成绩信息                   |
+    |   5.学生成绩排名                       |
+    |   6.统计学生总人数                     |
+    |   7.显示所有学生信息                   |
+    |   0.退出系统                          |
+    |  ==================================  |
+    |  说明：通过数字或↑↓方向键选择菜单       |
+    |———————————————————————————————————————|
+        """)
+
+
+if __name__ == '__main__':
+    main()
 
 
