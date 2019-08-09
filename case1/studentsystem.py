@@ -69,7 +69,40 @@ def insert():
 
 # 查找学生成绩信息
 def search():
-    pass
+    mark = True
+    student_query = []
+    while mark:
+        id = ''
+        name = ''
+        if os.path.exists(filename):
+            mode = input('按ID查询请输入1；按姓名查询请输入2：')
+            if mode == '1':
+                id = input('请输入学生的ID：')
+            elif mode == '2':
+                name = input('请输入学生的姓名：')
+            else:
+                print('您的输入有误，请重新输入！')
+                search()
+            with open(filename, 'r') as file:
+                student = file.readlines()
+                for list in student:
+                    d = dict(eval(list))
+                    if id is not '':
+                        if d['id'] == id:
+                            student_query.append(d)
+                    elif name is not '':
+                        if d['name'] == name:
+                            student_query.append(d)
+                show_student(student_query)
+                student_query.clear()
+                inputMark = input('是否继续查询？（y/n）：')
+                if inputMark == 'y':
+                    mark = True
+                else:
+                    mark = False
+        else:
+            print('暂未保存数据信息...')
+            return
 
 
 # 删除学生信息
@@ -110,7 +143,37 @@ def delete():
 
 # 修改学生成绩信息
 def modify():
-    pass
+    show()
+    if os.path.exists(filename):
+        with open(filename, 'r') as rfile:
+            student_old = rfile.readlines()
+    else:
+        return
+    studentid = input('请输入要修改的学生ID：')
+    with open(filename, 'w') as wfile:
+        for student in student_old:
+            d = dict(eval(student))
+            if d['id'] == studentid:
+                print('已经找到该学生，可以修改该生的信息！')
+                while True:
+                    try:
+                        d['name'] = input('请输入姓名：')
+                        d['english'] = int(input('请输入英语成绩：'))
+                        d['python'] = int(input('请输入python成绩：'))
+                        d['c'] = int(input('请输入C语言成绩：'))
+                    except:
+                        print('您的输入有误，请重新输入。')
+                    else:
+                        break
+                student = str(d)
+                wfile.write(student + '\n')
+                print('修改成功！')
+            else:
+                wfile.write(student)
+            mark = input('是否继续修改其他学生的信息？（y/n）:')
+            if mark == 'y':
+                modify()
+
 
 
 # 学生成绩排名
