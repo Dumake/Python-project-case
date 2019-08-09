@@ -8,7 +8,7 @@
 # @Date      : 2019/8/8
 # @Time      : 14:01
 
-import re
+import re, os
 
 def main():
     ctrl = True
@@ -56,7 +56,15 @@ def insert():
             print('输入无效，不是整型数值...重新录入信息')
             continue
 
-
+        student = {'id': id, 'name': name, 'english': english, 'python': python, 'c': c}
+        studentList.append(student)
+        inputMark = input('是否继续添加？（y/n）:')
+        if inputMark == 'y':
+            mark = True
+        else:
+            mark = False
+    save(student)
+    print('学生信息录入完毕！')
 
 
 # 查找学生成绩信息
@@ -66,7 +74,38 @@ def search():
 
 # 删除学生信息
 def delete():
-    pass
+    mark = True
+    while mark:
+        studentId = input('请输入要删除的学生ID：')
+        if studentId is not '':
+            if os.path.exists(filename):
+                with open(filename, 'r') as rfile:
+                    student_old = rfile.readlines()
+            else:
+                student_old = []
+            ifdel = False
+            if student_old:
+                with open(filename, 'w') as wfile:
+                    d = {}
+                    for list in student_old:
+                        d = dict(eval(list))
+                        if d['id'] !=studentId:
+                            wfile.write(str(d) + '\n')
+                        else:
+                            ifdel = True
+                    if ifdel:
+                        print('ID为{}的学生信息已经被删除...'.format(studentId))
+                    else:
+                        print('没有找到ID为{}的学生信息...'.format(studentId))
+            else:
+                print('无学生信息...')
+                break
+            show()
+            inputMark = input('是否继续删除？（y/n）:')
+            if inputMark == 'y':
+                mark = True
+            else:
+                mark = False
 
 
 # 修改学生成绩信息
