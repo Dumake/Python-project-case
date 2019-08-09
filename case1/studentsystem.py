@@ -39,7 +39,24 @@ def main():
 
 # 录入学生成绩信息函数
 def insert():
-    pass
+    studentList=[]
+    mark = True
+    while mark:
+        id = input("请输入ID（如1001）：")
+        if not id:
+            break
+        name = input('请输入姓名：')
+        if not name:
+            break
+        try:
+            english = int(input('请输入英语成绩：'))
+            python = int(input('请输入python成绩：'))
+            c = int(input('请输入C语言成绩：'))
+        except:
+            print('输入无效，不是整型数值...重新录入信息')
+            continue
+
+
 
 
 # 查找学生成绩信息
