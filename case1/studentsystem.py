@@ -10,6 +10,7 @@
 
 import re, os
 
+
 def main():
     ctrl = True
     while (ctrl):
@@ -175,7 +176,6 @@ def modify():
                 modify()
 
 
-
 # 学生成绩排名
 def sort():
     pass
@@ -183,7 +183,15 @@ def sort():
 
 # 统计学生总人数
 def total():
-    pass
+    if os.path.exists(filename):
+        with open(filename, 'r') as rfile:
+            student_old = rfile.readlines()
+            if student_old:
+                print('一共有{}名学生！'.format(len(student_old)))
+            else:
+                print('还没有录入学生信息！')
+    else:
+        print('暂未保存数据信息...')
 
 
 # 显示所有学生信息
@@ -191,7 +199,7 @@ def show():
     pass
 
 
-#将学生信息保存到文件
+# 将学生信息保存到文件
 def save(student):
     try:
         student_txt = open(filename, 'a')
@@ -201,6 +209,18 @@ def save(student):
         student_txt.write(str(info) + '\n')
     student_txt.close()
 
+
+def show_student(studentlist):
+    if not studentlist:
+        print("无数据信息！！！")
+        return
+    format_title = '{:^6}{:^12}\t{:^8}\t{:^10}\t{:^10}\t{:^10}'
+    print(format_title.format('ID', '姓名', '英语成绩', 'python成绩', 'C语言成绩', '总成绩'))
+
+    format_data = '{:^6}{:^12}\t{:^12}\t{:^12}\t{:^12}\t{:^12}'
+    for info in studentlist:
+        print(format_data.format(info.get('id'), info.get('name'), str(info.get('english')), str(info.get('python')),
+                                 str(info.get('c')), str(info.get('english') + info.get('python') + info.get('c')).center(12)))
 
 def menu():
     print("""    
@@ -223,6 +243,7 @@ def menu():
 
 
 if __name__ == '__main__':
+    filename = 'test.txt'
     main()
 
 
