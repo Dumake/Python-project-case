@@ -64,7 +64,7 @@ def insert():
             mark = True
         else:
             mark = False
-    save(student)
+    save(studentList)
     print('学生信息录入完毕！')
 
 
@@ -230,10 +230,10 @@ def show():
     if os.path.exists(filename):
         with open(filename, 'r') as rfile:
             student_old = rfile.readlines()
-            for list in student_old:
-                student_new.append(eval(list))
-            if student_new:
-                show_student(student_new)
+        for list_l in student_old:
+            student_new.append(eval(list_l))
+        if student_new:
+            show_student(student_new)
     else:
         print('暂未保存数据信息...')
 
@@ -278,7 +278,7 @@ def menu():
        0.退出系统                          
       ================================  
       说明：通过数字或↑↓方向键选择菜单       
-    —————————————————————————————————————
+    ————————————————————————————----
         """)
 
 
