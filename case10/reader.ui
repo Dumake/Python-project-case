@@ -157,11 +157,17 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>8</x>
       <y>140</y>
       <width>431</width>
       <height>355</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>11</pointsize>
+     </font>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -202,7 +208,7 @@
      <attribute name="title">
       <string>按名称显示</string>
      </attribute>
-     <widget class="QTableWidget" name="listWidget">
+     <widget class="QListWidget" name="listWidget">
       <property name="geometry">
        <rect>
         <x>8</x>
@@ -217,16 +223,20 @@
         <height>16777215</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
       </property>
       <property name="iconSize">
        <size>
         <width>72</width>
         <height>72</height>
        </size>
+      </property>
+      <property name="spacing">
+       <number>12</number>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::IconMode</enum>
       </property>
      </widget>
     </widget>

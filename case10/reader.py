@@ -6,7 +6,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import sys, os, time
+import urllib.request
+from bs4 import BeautifulSoup
+from PyQt5.QtCore import QDate
+from PyQt5.QtWidgets import QMessageBox, QFileDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -15,10 +19,14 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(498, 547)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+
+        # 设置”抓取设置“区域
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setGeometry(QtCore.QRect(10, 10, 431, 121))
         self.groupBox.setObjectName("groupBox")
+
+        # 对”选择“按钮进行设置
         self.pushButton2 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton2.setGeometry(QtCore.QRect(370, 60, 41, 23))
         font = QtGui.QFont()
@@ -27,6 +35,8 @@ class Ui_MainWindow(object):
         self.pushButton2.setFont(font)
         self.pushButton2.setAutoFillBackground(True)
         self.pushButton2.setObjectName("pushButton2")
+
+        # 对”确定“按钮进行设置
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
         self.pushButton.setGeometry(QtCore.QRect(340, 90, 75, 23))
         font = QtGui.QFont()
@@ -35,6 +45,8 @@ class Ui_MainWindow(object):
         self.pushButton.setFont(font)
         self.pushButton.setAutoFillBackground(True)
         self.pushButton.setObjectName("pushButton")
+
+        # 对”设置期数“标签进行设置
         self.label = QtWidgets.QLabel(self.groupBox)
         self.label.setGeometry(QtCore.QRect(20, 30, 131, 16))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -47,6 +59,8 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label.setFont(font)
         self.label.setObjectName("label")
+
+        # 对”选择路径“标签进行设置
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(20, 60, 131, 16))
         font = QtGui.QFont()
@@ -54,12 +68,13 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(self.groupBox)
-        self.label_3.setGeometry(QtCore.QRect(265, 31, 150, 16))
-        self.label_3.setObjectName("label_3")
+
+        # 对”选择保存路径“文本框进行设置
         self.lineEdit = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit.setGeometry(QtCore.QRect(160, 60, 201, 20))
         self.lineEdit.setObjectName("lineEdit")
+
+        # 对”设置期数”控件进行设置
         self.lineEdit_2 = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit_2.setGeometry(QtCore.QRect(160, 30, 100, 20))
         font = QtGui.QFont()
@@ -67,33 +82,52 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.lineEdit_2.setFont(font)
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.label_3 = QtWidgets.QLabel(self.groupBox)
+        self.label_3.setGeometry(QtCore.QRect(265, 31, 150, 16))
+        self.label_3.setObjectName("label_3")
+
+        # 对“选项卡”进行设置
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(10, 140, 431, 355))
+        self.tabWidget.setGeometry(QtCore.QRect(8, 140, 431, 355))
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(11)
+        self.tabWidget.setFont(font)
         self.tabWidget.setObjectName("tabWidget")
+
+        # 设置“选项卡的第1个TAB,加入QTableWidget表格
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.tableWidget = QtWidgets.QTableWidget(self.tab)
         self.tableWidget.setGeometry(QtCore.QRect(0, 0, 410, 295))
-        self.tableWidget.setMaximumSize(QtCore.QSize(410, 16777215))
         self.tableWidget.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tableWidget.setColumnCount(2)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        self.tableWidget.setColumnWidth(0,130)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tabWidget.addTab(self.tab, "")
+
+        # 设置“选项卡的第2个TAB,加入QTableWidget表格
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.listWidget = QtWidgets.QTableWidget(self.tab_2)
+        self.listWidget = QtWidgets.QListWidget(self.tab_2)
         self.listWidget.setGeometry(QtCore.QRect(8, 5, 410, 295))
-        self.listWidget.setMaximumSize(QtCore.QSize(800, 16777215))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Microsoft YaHei UI")
         self.listWidget.setFont(font)
+        self.listWidget.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.listWidget.setIconSize(QtCore.QSize(72, 72))
+        self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
         self.listWidget.setObjectName("listWidget")
-        self.listWidget.setColumnCount(0)
-        self.listWidget.setRowCount(0)
         self.tabWidget.addTab(self.tab_2, "")
+        self.listWidget.setMaximumWidth(800)
+        self.listWidget.setSpacing(12)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 498, 23))
@@ -109,12 +143,32 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "RCQ读者书库"))
+        self.groupBox.setTitle(_translate("MainWindow", "抓取设置"))
         self.pushButton2.setText(_translate("MainWindow", "选择"))
         self.pushButton.setText(_translate("MainWindow", "确定"))
         self.label.setText(_translate("MainWindow", "请选择抓取期数："))
+        self.lineEdit.setText(_translate("MainWindow", os.getcwd()))
+        strDate = str(time.localtime().tm_year) + '- ' + str(time.localtime().tm_mon)
+        self.lineEdit_2.setText(_translate("MainWindow", strDate))
         self.label_2.setText(_translate("MainWindow", "请选择保存路径："))
         self.label_3.setText(_translate("MainWindow", "（期数范围为：01--24）"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "期数"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "名称"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "按期数显示"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "按名称显示"))
+
+
+def getdata(self, url, path):
+    soup = self.urlTosoup(url)
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
