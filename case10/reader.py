@@ -33,6 +33,7 @@ class Ui_MainWindow(object):
         font.setFamily("Microsoft YaHei UI")
         font.setPointSize(11)
         self.pushButton2.setFont(font)
+        self.pushButton2.clicked.connect(self.msg)
         self.pushButton2.setAutoFillBackground(True)
         self.pushButton2.setObjectName("pushButton2")
 
@@ -161,8 +162,57 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "按名称显示"))
 
 
-def getdata(self, url, path):
-    soup = self.urlTosoup(url)
+    def msg(self):
+        try:
+            self.dir_path = QFileDialog.getExistingDirectory(None, '选择路径', os.getcwd())
+            self.lineEdit.setText(self.dir_path)
+        except Exception as e:
+            print(e)
+
+    def getdata(self, url, path):
+        soup = self.urlTosoup(url)
+        link = soup.select('.booklist a')
+        path = path + '\\' + self.date + '\\'
+        if not os.path.isdir(path):
+            os.mkdir(path)
+        for item in link:
+            articleUrl = self.baseurl + item['href']
+            articleSoup = self.urlTosoup(articleUrl)
+            title = str(articleSoup.find('h1')).lstrip('<h1>').rstrip('</h1>')
+            author = str(articleSoup.find(id='pub_date')).strip()
+            fileName = path + title + '.txt'
+            newFile = open(fileName, 'w')
+            newFile.write('<<' + title + '>>\n\n')
+            newFile.write(author + '\n\n')
+            content = articleSoup.select('.blkContainerSblkCon p')
+            for c in content:
+                text = c.text
+                newFile.write(text)
+            newFile.close()
+        QMessageBox.Information(None, '提示', self.date + "的读者文章保存完成", QMessageBox.Ok)
+
+    def urlTosoup(self, url):
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        soup = BeautifulSoup(html, 'html.parser')
+        return soup
+
+    def getFiles(self):
+        self.list = os.listdir(self.lineEdit.text() + '\\' + self.lineEdit_2.text())
+
+    def bineTable(self):
+        for i in range(0, len(self.list)):
+            self.tableWidget.insertRow(i)
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.lineEdit_2.text()))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.list[i]))
+
+    def bindList(self):
+        for i in range(0, len(self.list)):
+            self.item = QtWidgets.QListWidgetItem(self.listWidget)
+            self.item.setIcon(QtGui.QIcon('note.ico'))
+            self.item.setText(str(self.list[i])[1:5]+'...')
+            self.item.setToolTip(self.list[i])
+            self.item.setFlags(QtCore.QT.ItemIsSelectable | QtCore.Qt.ItemIsEditable)
 
 
 if __name__ == "__main__":
