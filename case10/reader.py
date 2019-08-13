@@ -1,9 +1,120 @@
-# 本程序所使用的语言版本为:Python3.7
-# -*-encoding: utf-8 -*-
-# @Author    : Luo Guifeng
-# @Email     : luoguifeng14@126.com
-# @IDE       : PyCharm
-# @Project   : Python-project-case
-# @File      : reader.py
-# @Date      : 2019/8/11
-# @Time      : 14:31
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'reader.ui'
+#
+# Created by: PyQt5 UI code generator 5.13.0
+#
+# WARNING! All changes made in this file will be lost!
+
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(498, 547)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox.setGeometry(QtCore.QRect(10, 10, 431, 121))
+        self.groupBox.setObjectName("groupBox")
+        self.pushButton2 = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton2.setGeometry(QtCore.QRect(370, 60, 41, 23))
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(11)
+        self.pushButton2.setFont(font)
+        self.pushButton2.setAutoFillBackground(True)
+        self.pushButton2.setObjectName("pushButton2")
+        self.pushButton = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton.setGeometry(QtCore.QRect(340, 90, 75, 23))
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
+        self.pushButton.setAutoFillBackground(True)
+        self.pushButton.setObjectName("pushButton")
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(20, 30, 131, 16))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(12)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.groupBox)
+        self.label_2.setGeometry(QtCore.QRect(20, 60, 131, 16))
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(12)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.groupBox)
+        self.label_3.setGeometry(QtCore.QRect(265, 31, 150, 16))
+        self.label_3.setObjectName("label_3")
+        self.lineEdit = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEdit.setGeometry(QtCore.QRect(160, 60, 201, 20))
+        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEdit_2.setGeometry(QtCore.QRect(160, 30, 100, 20))
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(12)
+        self.lineEdit_2.setFont(font)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(10, 140, 431, 355))
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.tableWidget = QtWidgets.QTableWidget(self.tab)
+        self.tableWidget.setGeometry(QtCore.QRect(0, 0, 410, 295))
+        self.tableWidget.setMaximumSize(QtCore.QSize(410, 16777215))
+        self.tableWidget.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setRowCount(0)
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.listWidget = QtWidgets.QTableWidget(self.tab_2)
+        self.listWidget.setGeometry(QtCore.QRect(8, 5, 410, 295))
+        self.listWidget.setMaximumSize(QtCore.QSize(800, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.listWidget.setFont(font)
+        self.listWidget.setIconSize(QtCore.QSize(72, 72))
+        self.listWidget.setObjectName("listWidget")
+        self.listWidget.setColumnCount(0)
+        self.listWidget.setRowCount(0)
+        self.tabWidget.addTab(self.tab_2, "")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 498, 23))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
+        self.pushButton2.setText(_translate("MainWindow", "选择"))
+        self.pushButton.setText(_translate("MainWindow", "确定"))
+        self.label.setText(_translate("MainWindow", "请选择抓取期数："))
+        self.label_2.setText(_translate("MainWindow", "请选择保存路径："))
+        self.label_3.setText(_translate("MainWindow", "（期数范围为：01--24）"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "按期数显示"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "按名称显示"))
