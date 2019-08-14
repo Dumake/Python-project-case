@@ -45,6 +45,7 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.pushButton.setFont(font)
         self.pushButton.setAutoFillBackground(True)
+        self.pushButton.clicked.connect(self.getdatas)
         self.pushButton.setObjectName("pushButton")
 
         # 对”设置期数“标签进行设置
@@ -112,6 +113,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setColumnWidth(0,130)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tabWidget.addTab(self.tab, "")
+        self.tableWidget.itemClicked.connect(self.tableClick)
 
         # 设置“选项卡的第2个TAB,加入QTableWidget表格
         self.tab_2 = QtWidgets.QWidget()
@@ -128,6 +130,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab_2, "")
         self.listWidget.setMaximumWidth(800)
         self.listWidget.setSpacing(12)
+        self.listWidget.itemClicked.connect(self.itemClick)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -200,7 +203,7 @@ class Ui_MainWindow(object):
     def getFiles(self):
         self.list = os.listdir(self.lineEdit.text() + '\\' + self.lineEdit_2.text())
 
-    def bineTable(self):
+    def bindTable(self):
         for i in range(0, len(self.list)):
             self.tableWidget.insertRow(i)
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.lineEdit_2.text()))
@@ -214,6 +217,24 @@ class Ui_MainWindow(object):
             self.item.setToolTip(self.list[i])
             self.item.setFlags(QtCore.QT.ItemIsSelectable | QtCore.Qt.ItemIsEditable)
 
+    def getdatas(self):
+        try:
+            while True:
+                self.date = self.lineEdit_2.text()
+                self.baseurl = 'http://www.duzhe.com/' + self.date.replace('-', '-') + '/'
+                urlList = self.baseurl + 'index.html'
+                self.getdata(urlList, self.lineEdit.text())
+        except Exception as e:
+            print(e)
+        self.getFiles()
+        self.bindList()
+        self.bindTable()
+
+    def itemClick(self, item):
+        os.startfile(self.lineEdit.text() + '\\' + self.lineEdit_2.text() + '\\' + item.toolTip())
+
+    def tableClick(self, item):
+        os.startfile(self.lineEdit.text() + '\\' + self.lineEdit_2.text() + '\\' + item.text())
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
