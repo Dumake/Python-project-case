@@ -7,3 +7,11 @@
 # @File      : forms.py
 # @Date      : 2019/8/14
 # @Time      : 11:50
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Email, Regexp, EqualTo, ValidationError, length
+
+
+class RegisterForm(FlaskForm):
+    username = StringField()
