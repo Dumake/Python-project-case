@@ -81,5 +81,46 @@ class Goods(db.Model):
     is_new = db.Column(db.Boolean(), default=0)
 
     supercat_id = db.Column(db.Integer, db.ForeignKey('supercat.id'))
+    subcat_id = db.Column(db.Integer, db.ForeignKey('subcat.id'))
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)
+    cart = db.relationship('Cart', backref='goods')
+    orders_detail = db.relationship('OrdersDetail', backref='goods')
 
+    def __repr__(self):
+        return '<Goods {}>'.format(self.name)
+
+
+class Cart(db.Model):
+    __tablename__ = 'cart'
+    id = db.Column(db.Integer, primary_key=True)
+    goods_id = db.Column(db.Integer, db.ForeignKey('goods.id'))
+    user_id = db.Column(db.Integer)
+    number = db.Column(db.Integer, default=0)
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)
+
+    def __repr__(self):
+        return '<Cart {}>'.format(self.id)
+
+
+class Orders(db.Model):
+    __tablename__ = 'orders'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    recevie_name = db.Column(db.String(255))
+    recevie_address = db.Column(db.String(255))
+    recevie_tel = db.Column(db.String(255))
+    remark = db.Column(db.String(255))
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)
+    orders_detail = db.relationship('OrdersDetail', backref='orders')
+
+    def __repr__(self):
+        return '<Orders {}>'.format(self.id)
+
+
+class OrdersDetail(db.Model):
+    __tablename__ = 'orders_detail'
+    id = db.Column(db.Integer, primary_key=True)
+    goods_id = db.Column(db.Integer, db.ForeignKey('goods.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    number = db.Column(db.Integer, default=0)
 
