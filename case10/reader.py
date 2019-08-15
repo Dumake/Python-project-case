@@ -236,6 +236,7 @@ class Ui_MainWindow(object):
     def tableClick(self, item):
         os.startfile(self.lineEdit.text() + '\\' + self.lineEdit_2.text() + '\\' + item.text())
 
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
