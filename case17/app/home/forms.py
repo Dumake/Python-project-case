@@ -14,4 +14,10 @@ from wtforms.validators import DataRequired, Email, Regexp, EqualTo, ValidationE
 
 
 class RegisterForm(FlaskForm):
-    username = StringField()
+    username = StringField(
+        label='账户：',
+        validators=[
+            DataRequired("用户名不能为空！"),
+            Length(min=3, max=50, message="用户名长度必须在3到50位之间")
+        ]
+    )
