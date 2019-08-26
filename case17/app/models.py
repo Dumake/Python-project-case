@@ -120,7 +120,9 @@ class Orders(db.Model):
     recevie_tel = db.Column(db.String(255))  # 收款人电话
     remark = db.Column(db.String(255))  # 备注信息
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
-    orders_detail = db.relationship('OrdersDetail', backref='orders')  # 订单外键关系关联
+    orders_detail = db.relationship('OrdersDetail', backref='orders'
+
+                                    )  # 订单外键关系关联
 
     def __repr__(self):
         return '<Orders {}>'.format(self.id)
